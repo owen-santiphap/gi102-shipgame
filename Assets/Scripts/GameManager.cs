@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Serialization;
 
 public class GameController : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class GameController : MonoBehaviour
     public TMP_Text feedbackText;
 
     [Header("Enemy Settings")]
-    public GameObject enemyPrefab;
+    private GameObject enemyPrefab;
     public Transform enemyContainer;
     public int gridSize = 10;
     public int enemyCount = 3;
@@ -21,16 +22,16 @@ public class GameController : MonoBehaviour
     public float playerY = 0.5f;
 
     [Header("Effects")]
-    public GameObject explosionEffectPrefab;
-    public AudioClip explosionSFX;
+    public GameObject explosionFxPrefab;
+    public AudioClip explosionSfx;
 
-    private List<GameObject> activeEnemies = new List<GameObject>();
-    private int guessCounter;
+    private List<GameObject> _activeEnemies = new List<GameObject>();
+    private int _guessCounter;
 
     void Start()
     {
         // Initialize guess counter
-        guessCounter = enemyCount - 1;
+        _guessCounter = enemyCount - 1;
 
         // Called to spawn enemies
         SpawnInitialEnemies();
@@ -50,7 +51,7 @@ public class GameController : MonoBehaviour
 
 
     //Method to spawn enemy
-    void SpawnEnemy()
+    private void SpawnEnemy()
     {
         // Randomly generate enemy position in the grid
         int enemyPosX = Random.Range(-gridSize, gridSize + 1);
@@ -64,10 +65,10 @@ public class GameController : MonoBehaviour
         else
             enemy = Instantiate(enemyPrefab, enemyPosition, enemyRotation);
 
-        activeEnemies.Add(enemy);
+        _activeEnemies.Add(enemy);
     }
 
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
         for (int x = -gridSize; x <= gridSize; x++)
@@ -102,9 +103,9 @@ public class GameController : MonoBehaviour
 
             bool hit = false;
 
-            for (int i = activeEnemies.Count - 1; i >= 0; i--)
+            for (int i = _activeEnemies.Count - 1; i >= 0; i--)
             {
-                GameObject enemy = activeEnemies[i];
+                GameObject enemy = _activeEnemies[i];
                 if (enemy != null)
                 {
                     int enemyX = Mathf.RoundToInt(enemy.transform.position.x);
@@ -115,37 +116,37 @@ public class GameController : MonoBehaviour
                         hit = true;
                         feedbackText.text = "Correct! Enemy destroyed.";
 
-                        if (explosionEffectPrefab != null)
+                        if (explosionFxPrefab != null)
                         {
-                            GameObject effect = Instantiate(explosionEffectPrefab, enemy.transform.position, Quaternion.identity);
+                            GameObject effect = Instantiate(explosionFxPrefab, enemy.transform.position, Quaternion.identity);
                             Destroy(effect, 2f);
                         }
 
-                        if (explosionSFX != null)
+                        if (explosionSfx != null)
                         {
-                            AudioSource.PlayClipAtPoint(explosionSFX, enemy.transform.position);
+                            AudioSource.PlayClipAtPoint(explosionSfx, enemy.transform.position);
                         }
 
                         Destroy(enemy);
-                        activeEnemies.RemoveAt(i);
+                        _activeEnemies.RemoveAt(i);
                     }
                 }
             }
 
-            if (activeEnemies.Count == 0)
+            if (_activeEnemies.Count == 0)
             {
                 feedbackText.text = "All enemies destroyed! You win!";
             }
             else if (!hit)
             {
-                guessCounter--;
-                if (guessCounter <= 0)
+                _guessCounter--;
+                if (_guessCounter <= 0)
                 {
                     feedbackText.text = "Game over! You've run out of guesses.";
                 }
                 else
                 {
-                    feedbackText.text = $"Wrong guess! Try again. Remaining guesses: {guessCounter}";
+                    feedbackText.text = $"Wrong guess! Try again. Remaining guesses: {_guessCounter}";
                 }
             }
         }
