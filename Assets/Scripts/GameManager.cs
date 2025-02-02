@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using TMPro;
 
@@ -28,21 +29,30 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        // Initialize guess counter
         guessCounter = enemyCount - 1;
+
+        // Called to spawn enemies
         SpawnInitialEnemies();
     }
 
     void SpawnInitialEnemies()
     {
+        // Spawn enemies
         for (int i = 0; i < enemyCount; i++)
         {
             SpawnEnemy();
         }
+
+        // Display initial feedback
         feedbackText.text = "Enemies spawned! Enter X and Z coordinates to attack.";
     }
 
+
+    //Method to spawn enemy
     void SpawnEnemy()
     {
+        // Randomly generate enemy position in the grid
         int enemyPosX = Random.Range(-gridSize, gridSize + 1);
         int enemyPosZ = Random.Range(-gridSize, gridSize + 1);
         Vector3 enemyPosition = new Vector3(enemyPosX, 0.5f, enemyPosZ);
