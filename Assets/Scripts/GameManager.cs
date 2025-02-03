@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     public TMP_Text feedbackText;
 
     [Header("Enemy Settings")]
-    private GameObject enemyPrefab;
+    public GameObject enemyPrefab;
     public Transform enemyContainer;
     public int gridSize = 10;
     public int enemyCount = 3;
@@ -108,9 +108,13 @@ public class GameController : MonoBehaviour
                 GameObject enemy = _activeEnemies[i];
                 if (enemy != null)
                 {
+                    /*
+                     Insert Code Here
+                    */
+                    
+                    //Code to Insert
                     int enemyX = Mathf.RoundToInt(enemy.transform.position.x);
                     int enemyZ = Mathf.RoundToInt(enemy.transform.position.z);
-
                     if (guessX == enemyX && guessZ == enemyZ)
                     {
                         hit = true;

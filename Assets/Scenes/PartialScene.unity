@@ -1168,7 +1168,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 769439213}
-  - component: {fileID: 769439214}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1191,29 +1190,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &769439214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 769439212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 497b498545cd04442bc4c72dc6396500, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputFieldX: {fileID: 2131626831}
-  inputFieldZ: {fileID: 1940567283}
-  feedbackText: {fileID: 1541920605}
-  enemyPrefab: {fileID: 7107370209540978729, guid: 087d6de0042f428409369167dd3b2a2e, type: 3}
-  enemyContainer: {fileID: 1810268458}
-  gridSize: 10
-  enemyCount: 3
-  player: {fileID: 171516722}
-  playerY: 0.5
-  explosionFxPrefab: {fileID: 1075076609698384527, guid: 6731e9c9d67b24a4a8ee0f438c1d4a2f, type: 3}
-  explosionSfx: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1959,7 +1935,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1810268458}
   m_Layer: 0
-  m_Name: Enemies
+  m_Name: Enemies Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2240,19 +2216,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2069422571}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 769439214}
-        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
-        m_MethodName: CheckGuess
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2069422571
 MonoBehaviour:
   m_ObjectHideFlags: 0
